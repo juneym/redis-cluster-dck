@@ -1,0 +1,15 @@
+version: '2'
+services:
+    webapp:
+        build: .
+        ports: 
+            - "8080:80"
+        volumes:
+            - .:/opt/webapp
+        links:
+            - "redis:redisdb"
+    redis:
+        image: redis:alpine
+        ports: 
+            - "6479"
+
