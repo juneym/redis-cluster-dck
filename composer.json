@@ -1,0 +1,7 @@
+{
+    "name": "juneym/redis-cluster-php-demo",
+    "require" : {
+        "predis/predis" : "1.1.1"
+    }
+
+}

@@ -7,9 +7,33 @@ services:
         volumes:
             - .:/opt/webapp
         links:
-            - "redis:redisdb"
-    redis:
-        image: redis:alpine
+            - "redis_master"
+            - "redis_s1"
+            - "redis_s2"
+    redis_master:
+        build: redis/
+        image: redis:alpine-custom
+        volumes:
+            - ./redis/redis_data_master:/data
         ports: 
             - "6479"
+        environment:
+            - REDIS_CONF=/usr/local/etc/redis/redis-master.conf
+    redis_s1:
+        image: redis:alpine-custom
+        volumes:
+            - ./redis/redis_data_s1:/data
+        ports: 
+            - "6479"
+        environment:
+            - REDIS_CONF=/usr/local/etc/redis/redis-slave.conf
+    redis_s2:
+        image: redis:alpine-custom
+        volumes:
+            - ./redis/redis_data_s2:/data
+        ports: 
+            - "6479"
+        environment:
+            - REDIS_CONF=/usr/local/etc/redis/redis-slave.conf
+ 
 
